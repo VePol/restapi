@@ -1,0 +1,17 @@
+{
+  "name": "nodejs-movie-database-api",
+  "version": "1.0.0",
+  "description": "A Node.js REST API for managing movies with MongoDB",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.21.1",
+    "mongoose": "^7.8.2"
+  },
+  "author": "",
+  "license": "ISC"
+}
+
