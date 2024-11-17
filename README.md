@@ -36,7 +36,7 @@ Deletes a movie document by its ID.
 To get started with this project locally, follow these steps:
 
 ### 1. Clone the repository:
-git clone https://github.com/yourusername/nodejs-movie-database-api.git
+git clone https://github.com/VePol/restapi.git
 cd nodejs-movie-database-api
 
 ### 2. Install the required dependencies:
