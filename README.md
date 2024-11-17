@@ -16,19 +16,19 @@ This project provides an API for managing movie data. It enables users to:
 
 The following HTTP methods and endpoints are available:
 
-### 1. GET /api/getall
+#### 1. GET /api/getall
 Returns all the movies in the collection.
 
-### 2. GET /api/[ID number]
+#### 2. GET /api/[ID number]
 Returns a single movie by its ID.
 
-### 3. POST /api/add
+#### 3. POST /api/add
 Creates a new movie document in the collection.
 
-### 4. PUT/PATCH /api/update/[ID number]
+#### 4. PUT/PATCH /api/update/[ID number]
 Updates a movie document by its ID
 
-### 5. DELETE /api/delete/[ID number]
+#### 5. DELETE /api/delete/[ID number]
 Deletes a movie document by its ID.
 
 ## How users can get started with the project
