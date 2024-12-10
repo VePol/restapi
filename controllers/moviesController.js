@@ -1,23 +1,39 @@
 // Import the Movie model to interact with the movies collection in the database
 const Movie = require('../models/movie');
 
-// Controller function to get all movies with pagination
+// Controller function to get all movies with pagination and search
 exports.getAllMovies = async (req, res) => {
   try {
     // Parse query parameters for pagination (defaults to page 1 and page size 10 if not provided)
     const page = parseInt(req.query.page) || 1;
     const pageSize = parseInt(req.query.pageSize) || 10;
+    const searchQuery = req.query.q; // Get the search term from query parameters
 
-    // Fetch movies with pagination using skip and limit
-    const movies = await Movie.find()
+    // Build a dynamic filter object based on the search query
+    const filter = {};
+    if (searchQuery) {
+      filter.$or = [
+        { title: { $regex: searchQuery, $options: 'i' } }, // Case-insensitive search in title
+        { genres: { $regex: searchQuery, $options: 'i' } }, // Search in genres
+        { directors: { $regex: searchQuery, $options: 'i' } }, // Search in directors
+        { cast: { $regex: searchQuery, $options: 'i' } } // Search in cast
+      ];
+    }
+
+    // Fetch movies with pagination and filter
+    const movies = await Movie.find(filter)
       .skip((page - 1) * pageSize) // Skip movies for previous pages
       .limit(pageSize); // Limit results to the page size
 
-    // Send the response with the paginated movies and metadata
+    // Count the total number of matching movies (optional: for total pages calculation)
+    const totalMovies = await Movie.countDocuments(filter);
+
+    // Send the response with the paginated and filtered movies
     res.json({
       page, // Current page number
       pageSize, // Number of movies per page
-      count: movies.length, // Number of movies returned in this request
+      totalMovies, // Total number of movies matching the search
+      totalPages: Math.ceil(totalMovies / pageSize), // Total number of pages
       movies: movies.map(movie => ({
         title: movie.title,
         year: movie.year,

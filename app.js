@@ -6,9 +6,12 @@ const express = require('express');
 const connectDB = require('./config/db');
 const bodyParser = require('body-parser');
 const moviesRoutes = require('./routes/movies');
+const cors = require('cors');
 
 // Initialize the Express application
 const app = express();
+
+app.use(cors());
 
 // Connect to the database using the connection function from 'config/db'
 connectDB();
